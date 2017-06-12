@@ -35,4 +35,16 @@ public class Cell {
         }
         this.row = column;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        if (seed != cell.seed) return false;
+        if (row != null ? !row.equals(cell.row) : cell.row != null) return false;
+        return column != null ? column.equals(cell.column) : cell.column == null;
+    }
 }
