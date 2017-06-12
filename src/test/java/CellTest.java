@@ -27,15 +27,15 @@ public class CellTest {
 
     private static Stream<Arguments> createWrongConstructorParameters(){
         return Stream.of(
-                ObjectArrayArguments.create(0,2),
-                ObjectArrayArguments.create(3,-1),
+                ObjectArrayArguments.create(-1,2),
+                ObjectArrayArguments.create(2,-1),
                 ObjectArrayArguments.create(-1,-1)
         );
     }
 
     @ParameterizedTest
     @MethodSource(names="createWrongConstructorParameters")
-    @DisplayName("Constructor throw Exepction when given parameters are below one and above three")
+    @DisplayName("Constructor throw Exepction when given parameters are below zero and above two")
     void testConstructorThrowsIllegalArgumentExpectionIfGivenParametersIsWrong(Integer row, Integer column){
         assertThrows(IllegalArgumentException.class, () -> {
             new Cell(row, column);
