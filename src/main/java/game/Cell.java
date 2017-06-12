@@ -23,15 +23,15 @@ public class Cell {
     }
 
     void setRow(Integer row) throws IllegalArgumentException {
-        if(row < 1 || row > 3){
-            throw new IllegalArgumentException("Given parameters out of range (1,3)");
+        if(row < 0 || row > 2){
+            throw new IllegalArgumentException("Given parameters out of range (0,2)");
         }
         this.row = row;
     }
 
     void setColumn(Integer column) throws IllegalArgumentException {
-        if(column < 1 || column > 3){
-            throw new IllegalArgumentException("Given parameters out of range (1,3)");
+        if(column < 0 || column > 2){
+            throw new IllegalArgumentException("Given parameters out of range (0,2)");
         }
         this.row = column;
     }
