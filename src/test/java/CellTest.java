@@ -1,3 +1,4 @@
+import game.Seed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -5,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ObjectArrayArguments;
+import org.mockito.Mock;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
@@ -41,8 +44,9 @@ public class CellTest {
     @Test
     void testClearSetContentParameterToEmptyString(){
         Cell cell = new Cell(1,1);
+        cell.setSeed(Seed.CROSS);
         cell.clear();
-        assertEquals("" ,cell.getSeed());
+        assertEquals(Seed.EMPTY ,cell.getSeed());
     }
 
 }
