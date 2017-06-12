@@ -38,9 +38,11 @@ public class CellTest {
         });
     }
 
-//    @Test
-//    void testClearSetContentParameterToEmptyString(){
-//
-//    }
+    @Test
+    void testClearSetContentParameterToEmptyString(){
+        Cell cell = new Cell(1,1);
+        cell.clear();
+        assertEquals("" ,cell.getSeed());
+    }
 
 }
