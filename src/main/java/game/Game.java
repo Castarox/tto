@@ -55,15 +55,53 @@ public class Game {
         return mapOfPosition;
     }
 
-    public void checkForChangeState() {
+    public boolean isWinCondition(Player player) {
         Map<Point, String> mapOfPosition = fillMapWithPosition();
-
-    }
-
-    public boolean updateGame() {
-        if (!updateBoard(this.currentPlayer)) {
-            return false;
+        Integer rowPosition = player.getMove().get("row");
+        Integer columnPosition = player.getMove().get("column");
+        Seed playerSeed = player.getSeed();
+        Map<String, Integer> lastMove = player.getMove();
+        Point playerMovePosition =  new Point(rowPosition, columnPosition);
+        switch (mapOfPosition.get(playerMovePosition)){
+            case "topMiddle":
+            case "middleLeft":
+            case "middleRight":
+            case "bottomMiddle":
+                return this.board.testWinforExtremeMiddleCells(playerSeed, lastMove);
+            case "topLeftCorner":
+            case "bottomRightCorner":
+                return this.board.testTopLeftOrLowerRightCorrnerForWin(playerSeed, lastMove);
+            case "topRightCorner":
+            case "bottomLeftCorner":
+                return this.board.testTopRightOrBottomLeftCorrnerForWin(playerSeed, lastMove);
+            case "center":
+                return this.board.testMiddleForWin(playerSeed, lastMove);
         }
-        checkForChangeState();
+
+        return false;
     }
+
+    public void setPlayerWinState(Player player){
+        if (player.getSeed() == Seed.CROSS) {
+            setCurrentState(GameState.CROSS_WON);
+        } else {
+            setCurrentState(GameState.NOUGHT_WON);
+        }
+    }
+
+    public boolean isForCheckPlayerWinCondition() {
+        Integer minimumNumberOfMoveToWin = 5;
+        Integer maximumNumberOfMoves = 9;
+        return this.moveCounter >= minimumNumberOfMoveToWin && this.moveCounter < maximumNumberOfMoves;
+    }
+
+    public boolean isCheckDrawStateCondition() {
+
+    }
+
+    public boolean isForCheckStateCondition() {
+        Integer minimumNumberOfMoveToChangeState = 5;
+        return this.moveCounter >= minimumNumberOfMoveToChangeState;
+    }
+
 }
