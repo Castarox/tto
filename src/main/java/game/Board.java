@@ -1,9 +1,8 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.PrimitiveIterator;
+import java.util.Map;
 
 public class Board {
     private List<List<Cell>> cells;
@@ -47,8 +46,69 @@ public class Board {
         return cells;
     }
 
-//     public boolean hasWon(Seed seed, Integer row, Integer column) {
+    public boolean testWinforExtremeMiddleCells(Seed seed, Map<String, Integer> lastMove) {
+        return testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed);
+    }
 
-//     }
+    private boolean testRowForWin(Integer row, Seed seed){
+        BoardIterator boardIterator = new BoardIterator(getCells());
+        while (boardIterator.hasNextInRow(row)) {
+            if(boardIterator.nextInRow(row).getSeed() != seed){ return false;}
+        }
+        return true;
+    }
+
+    private boolean testColumnForWin(Integer column, Seed seed){
+        BoardIterator boardIterator = new BoardIterator(getCells());
+        while (boardIterator.hasNextInColumn(column)){
+            if (boardIterator.nextInColumn(column).getSeed() != seed){return false;}
+        }
+        return true;
+    }
+
+    public boolean testTopLeftOrLowerRightCorrnerForWin(Seed seed, Map<String, Integer> lastMove){
+        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
+            return true;
+        }
+        return testDownCrossForWin(seed);
+    }
+
+    private boolean testDownCrossForWin(Seed seed){
+        BoardIterator boardIterator = new BoardIterator(getCells());
+        while (boardIterator.hasNextInCrossDown()){
+            if (boardIterator.nextInCrossDown().getSeed() != seed) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean testUpCrossForWin(Seed seed){
+        BoardIterator boardIterator = new BoardIterator(getCells());
+        while (boardIterator.hasNextInCrossUp()){
+            if (boardIterator.nextInCrossUp().getSeed() != seed) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean testTopRightOrBottomLeftCorrnerForWin(Seed seed, Map<String, Integer> lastMove){
+        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
+            return true;
+        }
+        return testUpCrossForWin(seed);
+    }
+
+    public boolean testMiddleForWin(Seed seed, Map<String, Integer> lastMove){
+        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
+            return true;
+        }
+        return testUpCrossForWin(seed) || testDownCrossForWin(seed);
+    }
+
+
+
+
 }
 
