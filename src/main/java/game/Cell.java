@@ -3,12 +3,23 @@ package game;
 public class Cell {
     private Seed seed;
     private Integer row;
+
+    public Integer getRow() {
+        return row;
+    }
+
+    public Integer getColumn() {
+        return column;
+    }
+
     private Integer column;
 
     public Cell(Integer row, Integer column){
         setRow(row);
         setColumn(column);
+        setSeed(Seed.EMPTY);
     }
+
 
     public void clear(){
         setSeed(Seed.EMPTY);
