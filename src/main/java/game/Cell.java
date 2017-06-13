@@ -3,6 +3,7 @@ package game;
 public class Cell {
     private Seed seed;
     private Integer row;
+    private Integer column;
 
     public Integer getRow() {
         return row;
@@ -11,8 +12,6 @@ public class Cell {
     public Integer getColumn() {
         return column;
     }
-
-    private Integer column;
 
     public Cell(Integer row, Integer column){
         setRow(row);
@@ -44,7 +43,7 @@ public class Cell {
         if(column < 0 || column > 2){
             throw new IllegalArgumentException("Given parameters out of range (0,2)");
         }
-        this.row = column;
+        this.column = column;
     }
 
     @Override
