@@ -38,6 +38,15 @@ public class UserInputTest {
         });
     }
 
+    @ParameterizedTest
+    @MethodSource(names = "createNamesToTestGetNameMethod")
+    void testGetNameReturnExceptedValue(String excepted){
+        InputStream testStream = new java.io.ByteArrayInputStream(excepted.getBytes());
+        UserInput userInput = new UserInput(testStream);
+        assertEquals(excepted, userInput.getName());
+
+    }
+
     private static Stream<Arguments> createNamesToTestGetNameMethod() {
         return Stream.of(
                 ObjectArrayArguments.create("Name"),

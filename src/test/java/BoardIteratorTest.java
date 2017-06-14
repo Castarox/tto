@@ -103,6 +103,7 @@ public class BoardIteratorTest {
     }
 
     private static Stream<Arguments> createArgumentsContainsIndexToTest(){
+        // TODO remove magic numbers
         return Stream.of(
                 ObjectArrayArguments.create(0),
                 ObjectArrayArguments.create(1),

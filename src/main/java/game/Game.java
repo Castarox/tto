@@ -115,8 +115,9 @@ public class Game {
         ListIterator<Player> playerIterator = this.playerList.listIterator(indexOfCurrentPlayer);
         if (playerIterator.hasNext()) {
             this.currentPlayer = playerIterator.next();
+        } else {
+            this.currentPlayer = playerIterator.previous();
         }
-        this.currentPlayer = playerIterator.previous();
     }
 
     public void setCurrentPlayer(Player player) {
@@ -129,6 +130,7 @@ public class Game {
         } else {
             setCurrentState(GameState.NOUGHT_WON);
         }
+        System.out.println(currentPlayer.getSeed());
     }
 
     public boolean isForCheckPlayerWinCondition() {

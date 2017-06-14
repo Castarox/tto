@@ -40,8 +40,11 @@ public class Player {
 
 
     public void makeMove(Integer row, Integer column) throws IllegalArgumentException {
-        if (row < 0 || column < 0) {
-            throw new IllegalArgumentException("Given arguments are below zero.");
+        if (row < 0 || row > 3) {
+            throw new IllegalArgumentException("Given arguments are Illegal");
+        }
+        else if (column < 0 || column > 3) {
+            throw new IllegalArgumentException("Given arguments are Illegal");
         }
         Map<String, Integer> move = new HashMap<>();
         move.put("row", row);

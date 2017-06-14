@@ -71,4 +71,8 @@ public class ViewConsole {
     public void turnMessage(String name){
         System.out.println("Player " + name + " turn");
     }
+
+    public void errorMessage(String error){
+        System.out.println(error);
+    }
 }
