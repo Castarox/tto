@@ -36,7 +36,7 @@ public class Board {
             cellToUpdate.setSeed(newSeed);
         }
         else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Cell are already taken you lose turn (NO MERCY FOR CHEATER :)");
         }
 
     }

@@ -6,6 +6,7 @@ public class GameController {
     private Game game;
     private UserInput userInput;
     private List<Player> playerList;
+    private Board board;
     private ViewConsole viewConsole;
 
     public ViewConsole getViewConsole() {
@@ -23,8 +24,6 @@ public class GameController {
     public void setBoard(Board board) {
         this.board = board;
     }
-
-    private Board board;
 
     public void setGame(Game game) {
         this.game = game;
@@ -103,13 +102,41 @@ public class GameController {
 
     public Map<String, Integer> getUserMove(UserInput userInput) {
         Map<String, Integer> playerMove = new HashMap<>();
-        this.getViewConsole().getRowMessage();
-        Integer row = userInput.getInteger();
-        this.getViewConsole().getColumnMessage();
-        Integer column = userInput.getInteger();
-        playerMove.put("row", row);
-        playerMove.put("column", column);
+        playerMove.put("row", getRowFromPlayer());
+        playerMove.put("column", getColumnFromPlayer());
         return playerMove;
+    }
+
+    public Integer getColumnFromPlayer(){
+        Integer columnIndex;
+        Boolean getColumn = true;
+        while (getColumn) {
+            this.getViewConsole().getColumnMessage();
+            try {
+                columnIndex = userInput.getInteger() - 1;
+                return columnIndex;
+            }catch (InputMismatchException e){
+                viewConsole.errorMessage(e.getMessage());
+
+            }
+        }
+        return null;
+    }
+
+    public Integer getRowFromPlayer(){
+        Boolean getRow = true;
+        Integer rowIndex;
+        while (getRow) {
+            this.getViewConsole().getRowMessage();
+            try {
+                rowIndex = userInput.getInteger() - 1;
+                getRow = false;
+                return rowIndex;
+            }catch (InputMismatchException e){
+                viewConsole.errorMessage(e.getMessage());
+            }
+        }
+        return null;
     }
 
     public void playerMove() {
@@ -138,12 +165,14 @@ public class GameController {
     }
 
     public void runGame() {
-        while (true) {
+        Boolean playing = true;
+        while (playing) {
             displayBoard();
+            viewConsole.turnMessage(game.getCurrentPlayer().getName());
             updateGame();
 
             if (Win()) {
-                break;
+                playing = false;
             }
 
             if (Draw()) {
@@ -156,7 +185,7 @@ public class GameController {
 
     public boolean Win() {
         if (this.game.isWin()) {
-            System.out.println("You won" + this.game.getCurrentPlayer().getName());
+            this.getViewConsole().winMessage(game.getCurrentPlayer().getName());
             return true;
         }
         return false;
@@ -173,7 +202,6 @@ public class GameController {
     public void nextPlayer() {
         this.game.switchPlayer();
     }
-
 
     public Player randomPlayer(List<Player> playerList) {
         Random randomizer = new Random();

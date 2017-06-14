@@ -1,6 +1,7 @@
 package game;
 
 import java.io.InputStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInput {
@@ -19,8 +20,12 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public Integer getInteger() throws NumberFormatException{
-        Scanner scanner = new Scanner(getStreamIn());
-        return scanner.nextInt();
+    public Integer getInteger() throws InputMismatchException{
+        try {
+            Scanner scanner = new Scanner(getStreamIn());
+            return scanner.nextInt();
+        }catch (InputMismatchException e){
+            throw new InputMismatchException("Wrong input my friend");
+        }
     }
 }

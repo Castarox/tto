@@ -47,16 +47,16 @@ public class Game {
         this.currentState = state;
     }
 
-    public boolean updateBoard(Player player) {
-        Integer rowIndexToUpdate = player.getMove().get("row") - 1;
-        Integer columnIndexToUpdate = player.getMove().get("column") - 1;
+    public void updateBoard(Player player) {
+        Integer rowIndexToUpdate = player.getMove().get("row");
+        Integer columnIndexToUpdate = player.getMove().get("column");
         Seed seed = player.getSeed();
         try {
             this.board.updateBoard(rowIndexToUpdate, columnIndexToUpdate, seed);
         } catch (IllegalArgumentException e) {
-            return false;
+            ViewConsole viewConsole = new ViewConsole(System.out);
+            viewConsole.errorMessage(e.getMessage());
         }
-        return true;
     }
 
     public Map<Point, String> fillMapWithPosition(){
@@ -112,11 +112,12 @@ public class Game {
 
     public void switchPlayer(){
         Integer indexOfCurrentPlayer = this.playerList.indexOf(this.currentPlayer);
-        ListIterator<Player> playerIterator = this.playerList.listIterator(indexOfCurrentPlayer);
-        if (playerIterator.hasNext()) {
-            this.currentPlayer = playerIterator.next();
-        } else {
-            this.currentPlayer = playerIterator.previous();
+        Integer firstIndex = 0;
+        Integer lastIndex = 1;
+        if (indexOfCurrentPlayer.equals(firstIndex)) {
+            this.setCurrentPlayer(playerList.get(lastIndex));
+        }else{
+            this.setCurrentPlayer(playerList.get(firstIndex));
         }
     }
 
@@ -130,7 +131,6 @@ public class Game {
         } else {
             setCurrentState(GameState.NOUGHT_WON);
         }
-        System.out.println(currentPlayer.getSeed());
     }
 
     public boolean isForCheckPlayerWinCondition() {
