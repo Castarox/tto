@@ -1,10 +1,8 @@
 package game;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class GameController {
     private Game game;
@@ -32,16 +30,20 @@ public class GameController {
 
     public void runGame() {
         while (true) {
-            Integer row = userInput.getInteger();
-            Integer column = userInput.getInteger();
+            Integer row = this.userInput.getInteger();
+            Integer column = this.userInput.getInteger();
             this.game.getCurrentPlayer().makeMove(row, column);
-            this.game.updateBoard(game.getCurrentPlayer());
-            game.incrementMoves();
-            if (game.isWin()) {
-                System.out.println("You won" + game.getCurrentPlayer().getName());
+            this.game.updateBoard(this.game.getCurrentPlayer());
+            this.game.incrementMoves();
+            if (this.game.isWin()) {
+                System.out.println("You won" + this.game.getCurrentPlayer().getName());
                 break;
             }
-            game.switchPlayer();
+            if (this.game.isDraw()) {
+                System.out.println("Draw");
+                break;
+            }
+            this.game.switchPlayer();
         }
     }
 

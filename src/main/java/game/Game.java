@@ -43,10 +43,6 @@ public class Game {
         return false;
     }
 
-    public void setCurrentPlayer(Player player) {
-        this.currentPlayer = player;
-    }
-
     public void setCurrentState(GameState state) {
         this.currentState = state;
     }
@@ -103,6 +99,30 @@ public class Game {
         return false;
     }
 
+    public boolean isDraw(){
+        return isDrawPossible();
+    }
+
+    public boolean isDrawPossible(){
+        if (this.moveCounter == 9) {
+            return true;
+        }
+        return false;
+    }
+
+    public void switchPlayer(){
+        Integer indexOfCurrentPlayer = this.playerList.indexOf(this.currentPlayer);
+        ListIterator<Player> playerIterator = this.playerList.listIterator(indexOfCurrentPlayer);
+        if (playerIterator.hasNext()) {
+            this.currentPlayer = playerIterator.next();
+        }
+        this.currentPlayer = playerIterator.previous();
+    }
+
+    public void setCurrentPlayer(Player player) {
+        this.currentPlayer = player;
+    }
+
     public void setPlayerWinState(Player player){
         if (player.getSeed() == Seed.CROSS) {
             setCurrentState(GameState.CROSS_WON);
@@ -120,15 +140,6 @@ public class Game {
     public boolean isForCheckStateCondition() {
         Integer minimumNumberOfMoveToChangeState = 5;
         return this.moveCounter >= minimumNumberOfMoveToChangeState;
-    }
-
-    public void switchPlayer(){
-        Integer indexOfCurrentPlayer = this.playerList.indexOf(this.currentPlayer);
-        ListIterator<Player> playerIterator = this.playerList.listIterator(indexOfCurrentPlayer);
-        if (playerIterator.hasNext()) {
-            this.currentPlayer = playerIterator.next();
-        }
-        this.currentPlayer = playerIterator.previous();
     }
 
 }
