@@ -48,11 +48,11 @@ public class Game {
     }
 
     public boolean updateBoard(Player player) {
-        Integer rowToUpdate = player.getMove().get("row");
-        Integer columnToUpdate = player.getMove().get("column");
+        Integer rowIndexToUpdate = player.getMove().get("row") - 1;
+        Integer columnIndexToUpdate = player.getMove().get("column") - 1;
         Seed seed = player.getSeed();
         try {
-            this.board.updateBoard(rowToUpdate, columnToUpdate, seed);
+            this.board.updateBoard(rowIndexToUpdate, columnIndexToUpdate, seed);
         } catch (IllegalArgumentException e) {
             return false;
         }
