@@ -2,23 +2,45 @@ package game;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class Game {
+    private List<Player> playerList;
     private Player currentPlayer;
     private GameState currentState;
     private Board board;
     private Integer moveCounter;
 
-    public Game(Player currentPlayer, GameState gameState, Board board, Integer moveCounter) {
+    public Game(Player currentPlayer, GameState gameState, Board board, Integer moveCounter, List<Player> playerList) {
         this.currentPlayer = currentPlayer;
         this.currentState = gameState;
         this.board = board;
         this.moveCounter = moveCounter;
+        this.playerList = playerList;
+    }
+
+    public Player getCurrentPlayer(){
+        return this.currentPlayer;
     }
 
     public void incrementMoves() {
         this.moveCounter++;
+    }
+
+    public boolean isWin(){
+        if (isWinPossible()) {
+            return this.isWinCondition(this.currentPlayer);
+        }
+        return false;
+    }
+
+    public boolean isWinPossible(){
+        if (this.moveCounter > 4) {
+            return true;
+        }
+        return false;
     }
 
     public void setCurrentPlayer(Player player) {
@@ -95,13 +117,18 @@ public class Game {
         return this.moveCounter >= minimumNumberOfMoveToWin && this.moveCounter < maximumNumberOfMoves;
     }
 
-    public boolean isCheckDrawStateCondition() {
-
-    }
-
     public boolean isForCheckStateCondition() {
         Integer minimumNumberOfMoveToChangeState = 5;
         return this.moveCounter >= minimumNumberOfMoveToChangeState;
+    }
+
+    public void switchPlayer(){
+        Integer indexOfCurrentPlayer = this.playerList.indexOf(this.currentPlayer);
+        ListIterator<Player> playerIterator = this.playerList.listIterator(indexOfCurrentPlayer);
+        if (playerIterator.hasNext()) {
+            this.currentPlayer = playerIterator.next();
+        }
+        this.currentPlayer = playerIterator.previous();
     }
 
 }
