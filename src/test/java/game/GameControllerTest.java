@@ -9,39 +9,38 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class GameControllerTest {
-    GameController gameController;
+    private GameController gameController;
 
     @BeforeEach
     void setup() {
-        gameController = new GameController();
+        this.gameController = new GameController();
     }
 
     @Test
     void testGetAndSetViewConsoleWorkCorrectly() {
         ViewConsole viewConsole = mock(ViewConsole.class);
-        gameController.setViewConsole(viewConsole);
-        assertEquals(viewConsole, gameController.getViewConsole());
+        this.gameController.setViewConsole(viewConsole);
+
+        assertEquals(viewConsole, this.gameController.getViewConsole());
     }
 
     @Test
     void testCreateFirstPlayerReturnCorrectPlayer() {
         Player expected = new Player("first", Seed.CROSS);
-        Player player = gameController.createFirstPlayer("first");
+        Player player = this.gameController.createFirstPlayer("first");
+
         assertEquals(expected, player);
     }
 
     @Test
     void testCreateSecondPlayerReturnCorrectPlayer() {
         Player expected = new Player("second", Seed.NOUGHT);
-        Player player = gameController.createSecondPlayer("second");
+        Player player = this.gameController.createSecondPlayer("second");
+
         assertEquals(expected, player);
     }
 
@@ -54,27 +53,27 @@ class GameControllerTest {
         UserInput userInput = mock(UserInput.class);
         ViewConsole viewConsole = mock(ViewConsole.class);
 
-        gameController.setViewConsole(viewConsole);
-        gameController.setUserInput(userInput);
+        this.gameController.setViewConsole(viewConsole);
+        this.gameController.setUserInput(userInput);
 
         when(userInput.getName()).thenReturn("sample");
 
-        assertEquals(expected, gameController.getPlayers());
+        assertEquals(expected, this.gameController.getPlayers());
     }
 
     @Test
     void testGetPreparedBoardReturnNotNull() {
-        assertNotNull(gameController.getPreparedBoard());
+        assertNotNull(this.gameController.getPreparedBoard());
     }
 
     @Test
     void testGetPreparedUserInputReturnNotNull() {
-        assertNotNull(gameController.getPreparedUserInput());
+        assertNotNull(this.gameController.getPreparedUserInput());
     }
 
     @Test
     void testGetPreparedViewConsoleReturnNotNull() {
-        assertNotNull(gameController.getPreparedViewConsole());
+        assertNotNull(this.gameController.getPreparedViewConsole());
     }
 
     @Test
@@ -87,11 +86,12 @@ class GameControllerTest {
         playerList.add(firstPlayer);
         playerList.add(secondPlayer);
 
-        gameController.setPlayerList(playerList);
-        when(gameController.randomPlayer(playerList)).thenReturn(null);
+        this.gameController.setPlayerList(playerList);
+        when(this.gameController.randomPlayer(playerList)).thenReturn(null);
 
-        assertNotNull(gameController.getPreparedGame());
+        assertNotNull(this.gameController.getPreparedGame());
     }
+
 
     @Test
     void testGetUserMoveReturnCorrectMapOfMove() {
@@ -104,13 +104,13 @@ class GameControllerTest {
 
         when(userInput.getInteger()).thenReturn(1);
 
-        gameController.setViewConsole(viewConsole);
-        gameController.setUserInput(userInput);
+        this.gameController.setViewConsole(viewConsole);
+        this.gameController.setUserInput(userInput);
 
-        when(gameController.getColumnFromPlayer()).thenReturn(1);
-        when(gameController.getRowFromPlayer()).thenReturn(1);
+        when(this.gameController.getColumnFromPlayer()).thenReturn(1);
+        when(this.gameController.getRowFromPlayer()).thenReturn(1);
 
-        assertEquals(expected, gameController.getUserMove());
+        assertEquals(expected, this.gameController.getUserMove());
     }
 
 }
