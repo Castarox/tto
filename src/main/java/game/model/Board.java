@@ -14,7 +14,7 @@ public class Board {
         setCells(fillBoardWithCells());
     }
 
-    public void setCells(List<List<Cell>> cells) {
+    void setCells(List<List<Cell>> cells) {
         this.cells = cells;
     }
 
@@ -32,7 +32,7 @@ public class Board {
         return cells;
     }
 
-    public void updateBoard(Integer rowToUpdate, Integer columnToUpdate, Seed newSeed) throws IllegalArgumentException{
+    void updateBoard(Integer rowToUpdate, Integer columnToUpdate, Seed newSeed) throws IllegalArgumentException{
         Cell cellToUpdate = getCells().get(rowToUpdate).get(columnToUpdate);
         if (cellToUpdate.getSeed() == Seed.EMPTY){
             cellToUpdate.setSeed(newSeed);
@@ -47,25 +47,25 @@ public class Board {
         return cells;
     }
 
-    public boolean testWinForExtremeMiddleCells(Seed seed, Map<String, Integer> lastMove) {
+    boolean testWinForExtremeMiddleCells(Seed seed, Map<String, Integer> lastMove) {
         return testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed);
     }
 
-    public boolean testTopRightOrBottomLeftCornerForWin(Seed seed, Map<String, Integer> lastMove){
+    boolean testTopRightOrBottomLeftCornerForWin(Seed seed, Map<String, Integer> lastMove){
         if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
             return true;
         }
         return testUpCrossForWin(seed);
     }
 
-    public boolean testTopLeftOrLowerRightCornerForWin(Seed seed, Map<String, Integer> lastMove){
+    boolean testTopLeftOrLowerRightCornerForWin(Seed seed, Map<String, Integer> lastMove){
         if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
             return true;
         }
         return testDownCrossForWin(seed);
     }
 
-    public boolean testMiddleForWin(Seed seed, Map<String, Integer> lastMove){
+    boolean testMiddleForWin(Seed seed, Map<String, Integer> lastMove){
         if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
             return true;
         }

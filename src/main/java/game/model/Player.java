@@ -32,7 +32,7 @@ public class Player {
         this.seed = seed;
     }
 
-    public Map<String, Integer> getMove() {
+    Map<String, Integer> getMove() {
         return move;
     }
 

@@ -1,5 +1,9 @@
-package game;
+package game.controller;
 
+import game.enums.Seed;
+import game.model.Player;
+import game.ui.UserInput;
+import game.ui.ViewConsole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

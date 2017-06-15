@@ -32,7 +32,7 @@ public class ViewConsole {
         System.out.println("Player " + playerNumber.toString() + " enter Name");
     }
 
-    public void wrongInputMessage(){
+    void wrongInputMessage(){
         System.out.println("Wrong input try again");
     }
 
@@ -48,7 +48,7 @@ public class ViewConsole {
         System.out.println("Player " + name + " WIN!!!");
     }
 
-    public void drawMessage(){
+    void drawMessage(){
         System.out.println("DRAW");
     }
 

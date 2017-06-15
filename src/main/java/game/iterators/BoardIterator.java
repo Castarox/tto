@@ -28,10 +28,7 @@ public class BoardIterator implements Iterator {
         if (this.twoDimensionList.size() == 0){
             return false;
         }
-        if (this.currentColumn < maxColumnSize) {
-            return true;
-        }
-        return false;
+        return this.currentColumn < maxColumnSize;
     }
 
     public Cell nextInRow(Integer row){
@@ -47,10 +44,7 @@ public class BoardIterator implements Iterator {
             return false;
         }
         if (this.currentRow < maxRowSize) {
-            if (column < maxColumnSize) {
-                return true;
-            }
-            return false;
+            return column < maxColumnSize;
         }
         return false;
     }
@@ -60,10 +54,7 @@ public class BoardIterator implements Iterator {
             return false;
         }
         if (this.currentRow < maxRowSize){
-            if (this.currentColumn < maxColumnSize){
-                return true;
-            }
-            return false;
+            return this.currentColumn < maxColumnSize;
         }
         return false;
     }
@@ -81,10 +72,7 @@ public class BoardIterator implements Iterator {
             return false;
         }
         if (this.maxRowSize >= 0){
-            if (this.currentColumn < maxColumnSize){
-                return true;
-            }
-            return false;
+            return this.currentColumn < maxColumnSize;
         }
         return false;
     }
@@ -115,7 +103,7 @@ public class BoardIterator implements Iterator {
         }
         this.currentColumn = 0;
         Integer maxRowIndex = maxRowSize - 1;
-        if (this.currentRow < maxRowSize - 1) {
+        if (this.currentRow < maxRowIndex) {
             this.currentRow++;
             return hasNext();
         }

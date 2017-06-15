@@ -45,7 +45,6 @@ class GameTest {
         Integer moveCounterForTest = 9;
         game = new Game(
                 currentPlayer,
-                GameState.PLAYING,
                 board,
                 moveCounterForTest,
                 playerList

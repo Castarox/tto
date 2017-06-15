@@ -91,10 +91,9 @@ public class GameController {
 
     Game getPreparedGame() {
         Player currentPlayer = this.randomPlayer(this.playerList);
-        GameState gameState = GameState.PLAYING;
         Integer currentMove = 0;
 
-        return new Game(currentPlayer, gameState, this.board, currentMove, this.playerList);
+        return new Game(currentPlayer, this.board, currentMove, this.playerList);
     }
 
     private void prepareGameController() {
@@ -105,7 +104,7 @@ public class GameController {
         this.setGame(getPreparedGame());
     }
 
-    static void initGame() {
+    public static void initGame() {
         GameController gameController = new GameController();
         gameController.prepareGameController();
         gameController.runGame();
@@ -199,7 +198,7 @@ public class GameController {
                 playing = false;
             }
 
-            if (draw()) {
+            else if (draw()) {
                 break;
             }
 
@@ -230,8 +229,8 @@ public class GameController {
     }
 
     Player randomPlayer(List<Player> playerList) {
-        Random randomizer = new Random();
-        Player randomPlayer = playerList.get(randomizer.nextInt(playerList.size()));
+        Random random = new Random();
+        Player randomPlayer = playerList.get(random.nextInt(playerList.size()));
 
         return randomPlayer;
     }

@@ -11,7 +11,7 @@ public class UserInput {
         this.streamIn = stremIn;
     }
 
-    public InputStream getStreamIn() {
+    private InputStream getStreamIn() {
         return streamIn;
     }
 

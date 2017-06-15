@@ -1,6 +1,5 @@
 package game.model;
 
-import game.enums.GameState;
 import game.enums.Seed;
 import game.ui.ViewConsole;
 
@@ -12,19 +11,17 @@ import java.util.Map;
 public class Game {
     private List<Player> playerList;
     private Player currentPlayer;
-    private GameState currentState;
     private Board board;
     private Integer moveCounter;
 
-    public Game(Player currentPlayer, GameState gameState, Board board, Integer moveCounter, List<Player> playerList) {
+    public Game(Player currentPlayer, Board board, Integer moveCounter, List<Player> playerList) {
         this.currentPlayer = currentPlayer;
-        this.currentState = gameState;
         this.board = board;
         this.moveCounter = moveCounter;
         this.playerList = playerList;
     }
 
-    public void setPlayerList(List<Player> playerList) {
+    void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
     }
 
@@ -36,42 +33,38 @@ public class Game {
         this.moveCounter++;
     }
 
-    public Integer getMoveCounter() {
+    Integer getMoveCounter() {
         return moveCounter;
     }
 
-    public void setMoveCounter(Integer moveCounter) {
+    void setMoveCounter(Integer moveCounter) {
         this.moveCounter = moveCounter;
     }
 
-    public boolean isWin(){
-        if (isWinPossible()) {
-            return this.isWinCondition(this.currentPlayer);
-        }
-        return false;
+    public boolean isWin() {
+        return isWinPossible() && this.isWinCondition(this.currentPlayer);
     }
 
-    public boolean isWinPossible(){
+    boolean isWinPossible(){
         Integer minimumNumberOfMovesToWin = 5;
-        if (this.moveCounter >= minimumNumberOfMovesToWin) {
-            return true;
-        }
-        return false;
+        return this.moveCounter >= minimumNumberOfMovesToWin;
     }
 
-    public void updateBoard(Player player) {
+    public Boolean updateBoard(Player player) {
         Integer rowIndexToUpdate = player.getMove().get("row");
         Integer columnIndexToUpdate = player.getMove().get("column");
         Seed seed = player.getSeed();
         try {
             this.board.updateBoard(rowIndexToUpdate, columnIndexToUpdate, seed);
+            return true;
         } catch (IllegalArgumentException e) {
             ViewConsole viewConsole = new ViewConsole(System.out);
             viewConsole.errorMessage(e.getMessage());
+            return false;
         }
     }
 
-    public Map<Point, String> fillMapWithPosition(){
+    Map<Point, String> fillMapWithPosition(){
         Map<Point, String> mapOfPosition = new HashMap<>();
         mapOfPosition.put(new Point(0,0), "topLeftCorner");
         mapOfPosition.put(new Point(0,1), "topMiddle");
@@ -85,7 +78,7 @@ public class Game {
         return mapOfPosition;
     }
 
-    public boolean isWinCondition(Player player) {
+    private boolean isWinCondition(Player player) {
         Map<Point, String> mapOfPosition = fillMapWithPosition();
         Integer rowPosition = player.getMove().get("row");
         Integer columnPosition = player.getMove().get("column");
@@ -113,7 +106,7 @@ public class Game {
 
     public boolean isDraw(){
         Integer numberOfMovesToDraw = 9;
-        return this.moveCounter == numberOfMovesToDraw;
+        return this.moveCounter.equals(numberOfMovesToDraw);
     }
 
     public void switchPlayer(){
@@ -127,7 +120,7 @@ public class Game {
         }
     }
 
-    public void setCurrentPlayer(Player player) {
+    void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
     }
 }
