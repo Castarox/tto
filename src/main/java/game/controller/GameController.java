@@ -1,4 +1,13 @@
-package game;
+package game.controller;
+
+import game.enums.GameState;
+import game.enums.Seed;
+import game.ui.UserInput;
+import game.ui.ViewConsole;
+import game.model.Board;
+import game.model.Cell;
+import game.model.Game;
+import game.model.Player;
 
 import java.util.*;
 

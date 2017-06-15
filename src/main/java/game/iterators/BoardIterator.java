@@ -1,4 +1,6 @@
-package game;
+package game.iterators;
+
+import game.model.Cell;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,29 +12,30 @@ public class BoardIterator implements Iterator {
     private Integer currentRow;
     private Integer currentColumn;
     private List<List<Cell>> twoDimensionList;
-    private Integer maxRowIndex;
-    private Integer maxColumnIndex;
+    private Integer maxRowSize;
+    private Integer maxColumnSize;
 
     public BoardIterator(List<List<Cell>> twoDimensionList) {
         this.twoDimensionList = twoDimensionList;
         this.currentRow = 0;
         this.currentColumn = 0;
-        this.maxRowIndex = twoDimensionList.size();
-        this.maxColumnIndex = twoDimensionList.get(0).size();
+        this.maxRowSize = twoDimensionList.size();
+        Integer firstRowIndex = 0;
+        this.maxColumnSize = twoDimensionList.get(firstRowIndex).size();
     }
 
-    public boolean hasNextInRow(Integer row) {
+    public boolean hasNextInRow() {
         if (this.twoDimensionList.size() == 0){
             return false;
         }
-        if (this.currentColumn < maxColumnIndex) {
+        if (this.currentColumn < maxColumnSize) {
             return true;
         }
         return false;
     }
 
     public Cell nextInRow(Integer row){
-        if (hasNextInRow(row)) {
+        if (hasNextInRow()) {
             return twoDimensionList.get(row).get(this.currentColumn++);
         }
 
@@ -43,8 +46,8 @@ public class BoardIterator implements Iterator {
         if (this.twoDimensionList.size() == 0){
             return false;
         }
-        if (this.currentRow < maxRowIndex) {
-            if (column < maxColumnIndex) {
+        if (this.currentRow < maxRowSize) {
+            if (column < maxColumnSize) {
                 return true;
             }
             return false;
@@ -56,8 +59,8 @@ public class BoardIterator implements Iterator {
         if (this.twoDimensionList.size() == 0) {
             return false;
         }
-        if (this.currentRow < maxRowIndex){
-            if (this.currentColumn < maxColumnIndex){
+        if (this.currentRow < maxRowSize){
+            if (this.currentColumn < maxColumnSize){
                 return true;
             }
             return false;
@@ -77,8 +80,8 @@ public class BoardIterator implements Iterator {
         if (this.twoDimensionList.size() == 0) {
             return false;
         }
-        if (this.maxRowIndex >= 0){
-            if (this.currentColumn < maxColumnIndex){
+        if (this.maxRowSize >= 0){
+            if (this.currentColumn < maxColumnSize){
                 return true;
             }
             return false;
@@ -88,12 +91,11 @@ public class BoardIterator implements Iterator {
 
     public Cell nextInCrossUp() {
         if (hasNextInCrossUp()) {
-            return twoDimensionList.get(--this.maxRowIndex).get(this.currentColumn++);
+            return twoDimensionList.get(--this.maxRowSize).get(this.currentColumn++);
         }
 
         return null;
     }
-
 
     public Cell nextInColumn(Integer column){
         if (hasNextInColumn(column)) {
@@ -108,11 +110,12 @@ public class BoardIterator implements Iterator {
         if (this.twoDimensionList.size() == 0) {
             return false;
         }
-        if (this.currentColumn < maxColumnIndex) {
+        if (this.currentColumn < maxColumnSize) {
             return true;
         }
         this.currentColumn = 0;
-        if (this.currentRow < maxRowIndex - 1) {
+        Integer maxRowIndex = maxRowSize - 1;
+        if (this.currentRow < maxRowSize - 1) {
             this.currentRow++;
             return hasNext();
         }

@@ -1,4 +1,6 @@
-package game;
+package game.model;
+
+import game.enums.Seed;
 
 public class Cell {
     private Seed seed;
@@ -16,11 +18,6 @@ public class Cell {
     public Cell(Integer row, Integer column){
         setRow(row);
         setColumn(column);
-        setSeed(Seed.EMPTY);
-    }
-
-
-    public void clear(){
         setSeed(Seed.EMPTY);
     }
 

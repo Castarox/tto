@@ -1,4 +1,4 @@
-package game;
+package game.ui;
 
 import java.io.InputStream;
 import java.util.InputMismatchException;

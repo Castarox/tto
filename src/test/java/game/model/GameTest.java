@@ -1,5 +1,7 @@
-package game;
+package game.model;
 
+import game.enums.GameState;
+import game.enums.Seed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Nested;
 
-import static game.MyAssertion.assertDoesNotThrow;
+import static game.myAssertion.MyAssertion.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -102,31 +104,6 @@ class GameTest {
         assertNotNull(mapToTest.get(point));
     }
 
-    private static Stream<Arguments> createCorrectPointsForFillMapWithPositionTest() {
-        Point firstPossiblePoint = new Point(0,0);
-        Point secondPossiblePoint = new Point(0,1);
-        Point thirdPossiblePoint = new Point(0,2);
-        Point fourPossiblePoint = new Point(1,0);
-        Point fivePossiblePoint = new Point(1,1);
-        Point sixPossiblePoint = new Point(1,2);
-        Point sevenPossiblePoint = new Point(2,0);
-        Point eightPossiblePoint = new Point(2,1);
-        Point ninePossiblePoint = new Point(2,2);
-
-        return Stream.of(
-                ObjectArrayArguments.create(firstPossiblePoint),
-                ObjectArrayArguments.create(secondPossiblePoint),
-                ObjectArrayArguments.create(thirdPossiblePoint),
-                ObjectArrayArguments.create(fourPossiblePoint),
-                ObjectArrayArguments.create(fivePossiblePoint),
-                ObjectArrayArguments.create(sixPossiblePoint),
-                ObjectArrayArguments.create(sevenPossiblePoint),
-                ObjectArrayArguments.create(eightPossiblePoint),
-                ObjectArrayArguments.create(ninePossiblePoint)
-
-        );
-    }
-
     @Nested
     @DisplayName("Testing end of game conditions")
     class endOfGameCondition{
@@ -161,7 +138,7 @@ class GameTest {
 
         @Test
         void testIsWinReturnTrueIfWinConditionIsComplete(){
-            when(board.testWinforExtremeMiddleCells(any(),any())).thenReturn(true);
+            when(board.testWinForExtremeMiddleCells(any(),any())).thenReturn(true);
             Map<String, Integer> moveForTest = new HashMap<>();
             Integer rowIndex = 0;
             Integer columnIndex = 1;
@@ -185,10 +162,10 @@ class GameTest {
     @Nested
     @DisplayName("Test for switching player")
     class SwitchPlayer{
+
         private Player playerOne;
         private Player playerTwo;
         private List<Player> playerListForTest;
-
         @BeforeEach
         void setup(){
             playerListForTest = new ArrayList<>();
@@ -214,5 +191,31 @@ class GameTest {
             game.switchPlayer();
             assertNotEquals(playerOne, game.getCurrentPlayer());
         }
+
+    }
+
+    private static Stream<Arguments> createCorrectPointsForFillMapWithPositionTest() {
+        Point firstPossiblePoint = new Point(0,0);
+        Point secondPossiblePoint = new Point(0,1);
+        Point thirdPossiblePoint = new Point(0,2);
+        Point fourPossiblePoint = new Point(1,0);
+        Point fivePossiblePoint = new Point(1,1);
+        Point sixPossiblePoint = new Point(1,2);
+        Point sevenPossiblePoint = new Point(2,0);
+        Point eightPossiblePoint = new Point(2,1);
+        Point ninePossiblePoint = new Point(2,2);
+
+        return Stream.of(
+                ObjectArrayArguments.create(firstPossiblePoint),
+                ObjectArrayArguments.create(secondPossiblePoint),
+                ObjectArrayArguments.create(thirdPossiblePoint),
+                ObjectArrayArguments.create(fourPossiblePoint),
+                ObjectArrayArguments.create(fivePossiblePoint),
+                ObjectArrayArguments.create(sixPossiblePoint),
+                ObjectArrayArguments.create(sevenPossiblePoint),
+                ObjectArrayArguments.create(eightPossiblePoint),
+                ObjectArrayArguments.create(ninePossiblePoint)
+
+        );
     }
 }

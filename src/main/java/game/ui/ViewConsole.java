@@ -1,4 +1,8 @@
-package game;
+package game.ui;
+
+import game.enums.Seed;
+import game.iterators.BoardIterator;
+import game.model.Cell;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -21,26 +25,6 @@ public class ViewConsole {
             boardToPrint.append(wallFloorOrEnd);
         }
         System.out.println(boardToPrint.toString());
-    }
-
-    private Character chooseCrossNoughtOrEmpty(Cell cell){
-        if (cell.getSeed() == Seed.CROSS){
-            return 'X';
-        }
-        else if (cell.getSeed() == Seed.NOUGHT) {
-            return 'O';
-        }
-        return ' ';
-    }
-
-    private String chooseWallFloorOrEnd(Integer seedPrinted){
-        if (seedPrinted == 9 ){
-            return "";
-        }
-        else if (seedPrinted % 3 == 0){
-            return "\n-----\n";
-        }
-        return "|";
     }
 
     public void getNameMessage(Integer playerIndex){
@@ -74,5 +58,25 @@ public class ViewConsole {
 
     public void errorMessage(String error){
         System.out.println(error);
+    }
+
+    private Character chooseCrossNoughtOrEmpty(Cell cell){
+        if (cell.getSeed() == Seed.CROSS){
+            return 'X';
+        }
+        else if (cell.getSeed() == Seed.NOUGHT) {
+            return 'O';
+        }
+        return ' ';
+    }
+
+    private String chooseWallFloorOrEnd(Integer seedPrinted){
+        if (seedPrinted == 9 ){
+            return "";
+        }
+        else if (seedPrinted % 3 == 0){
+            return "\n-----\n";
+        }
+        return "|";
     }
 }

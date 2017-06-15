@@ -1,4 +1,7 @@
-package game;
+package game.model;
+
+import game.iterators.BoardIterator;
+import game.enums.Seed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,6 @@ public class Board {
     }
 
     public void updateBoard(Integer rowToUpdate, Integer columnToUpdate, Seed newSeed) throws IllegalArgumentException{
-        // TODO pytanie do Rafała
         Cell cellToUpdate = getCells().get(rowToUpdate).get(columnToUpdate);
         if (cellToUpdate.getSeed() == Seed.EMPTY){
             cellToUpdate.setSeed(newSeed);
@@ -41,18 +43,38 @@ public class Board {
 
     }
 
-
     public List<List<Cell>> getCells() {
         return cells;
     }
 
-    public boolean testWinforExtremeMiddleCells(Seed seed, Map<String, Integer> lastMove) {
+    public boolean testWinForExtremeMiddleCells(Seed seed, Map<String, Integer> lastMove) {
         return testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed);
+    }
+
+    public boolean testTopRightOrBottomLeftCornerForWin(Seed seed, Map<String, Integer> lastMove){
+        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
+            return true;
+        }
+        return testUpCrossForWin(seed);
+    }
+
+    public boolean testTopLeftOrLowerRightCornerForWin(Seed seed, Map<String, Integer> lastMove){
+        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
+            return true;
+        }
+        return testDownCrossForWin(seed);
+    }
+
+    public boolean testMiddleForWin(Seed seed, Map<String, Integer> lastMove){
+        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
+            return true;
+        }
+        return testUpCrossForWin(seed) || testDownCrossForWin(seed);
     }
 
     private boolean testRowForWin(Integer row, Seed seed){
         BoardIterator boardIterator = new BoardIterator(getCells());
-        while (boardIterator.hasNextInRow(row)) {
+        while (boardIterator.hasNextInRow()) {
             if(boardIterator.nextInRow(row).getSeed() != seed){ return false;}
         }
         return true;
@@ -64,13 +86,6 @@ public class Board {
             if (boardIterator.nextInColumn(column).getSeed() != seed){return false;}
         }
         return true;
-    }
-
-    public boolean testTopLeftOrLowerRightCorrnerForWin(Seed seed, Map<String, Integer> lastMove){
-        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
-            return true;
-        }
-        return testDownCrossForWin(seed);
     }
 
     private boolean testDownCrossForWin(Seed seed){
@@ -91,20 +106,6 @@ public class Board {
             }
         }
         return true;
-    }
-
-    public boolean testTopRightOrBottomLeftCorrnerForWin(Seed seed, Map<String, Integer> lastMove){
-        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
-            return true;
-        }
-        return testUpCrossForWin(seed);
-    }
-
-    public boolean testMiddleForWin(Seed seed, Map<String, Integer> lastMove){
-        if (testRowForWin(lastMove.get("row"), seed) || testColumnForWin(lastMove.get("column"), seed)) {
-            return true;
-        }
-        return testUpCrossForWin(seed) || testDownCrossForWin(seed);
     }
 
 

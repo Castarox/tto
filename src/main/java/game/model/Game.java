@@ -1,4 +1,8 @@
-package game;
+package game.model;
+
+import game.enums.GameState;
+import game.enums.Seed;
+import game.ui.ViewConsole;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -48,7 +52,8 @@ public class Game {
     }
 
     public boolean isWinPossible(){
-        if (this.moveCounter > 4) {
+        Integer minimumNumberOfMovesToWin = 5;
+        if (this.moveCounter >= minimumNumberOfMovesToWin) {
             return true;
         }
         return false;
@@ -92,13 +97,13 @@ public class Game {
             case "middleLeft":
             case "middleRight":
             case "bottomMiddle":
-                return this.board.testWinforExtremeMiddleCells(playerSeed, lastMove);
+                return this.board.testWinForExtremeMiddleCells(playerSeed, lastMove);
             case "topLeftCorner":
             case "bottomRightCorner":
-                return this.board.testTopLeftOrLowerRightCorrnerForWin(playerSeed, lastMove);
+                return this.board.testTopLeftOrLowerRightCornerForWin(playerSeed, lastMove);
             case "topRightCorner":
             case "bottomLeftCorner":
-                return this.board.testTopRightOrBottomLeftCorrnerForWin(playerSeed, lastMove);
+                return this.board.testTopRightOrBottomLeftCornerForWin(playerSeed, lastMove);
             case "center":
                 return this.board.testMiddleForWin(playerSeed, lastMove);
         }
@@ -107,7 +112,8 @@ public class Game {
     }
 
     public boolean isDraw(){
-        return this.moveCounter == 9;
+        Integer numberOfMovesToDraw = 9;
+        return this.moveCounter == numberOfMovesToDraw;
     }
 
     public void switchPlayer(){

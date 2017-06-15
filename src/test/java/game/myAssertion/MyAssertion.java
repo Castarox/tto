@@ -1,4 +1,4 @@
-package game;
+package game.myAssertion;
 
 public class MyAssertion {
 
@@ -11,5 +11,5 @@ public class MyAssertion {
         }
     }
 
-    @FunctionalInterface interface FailingRunnable { void run() throws Exception; }
+    @FunctionalInterface public interface FailingRunnable { void run() throws Exception; }
 }

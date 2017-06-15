@@ -1,6 +1,10 @@
-package game;
+package game.ui;
 
+import game.enums.Seed;
+import game.model.Cell;
+import game.ui.ViewConsole;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,7 +20,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
+@DisplayName("Test for Correct Prints: ")
 class ViewConsoleTest {
     private final ByteArrayOutputStream OUTPUT_STREAM = new ByteArrayOutputStream();
     private ViewConsole viewConsole;
@@ -27,6 +31,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test drawMessage Method")
     void testDrawMessagePrintCorrectValue() {
         viewConsole.drawMessage();
         String excepted = "DRAW\n";
@@ -35,6 +40,7 @@ class ViewConsoleTest {
 
     @ParameterizedTest
     @MethodSource(names = "createArgumentsContainsIndexToTest")
+    @DisplayName("Test getNameMessage Method" )
     void testGetNameMessagePrintCorrectValue(Integer index) {
         viewConsole.getNameMessage(index);
         Integer playerNumber = index + 1;
@@ -43,6 +49,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test printBoard with empty Seeds Method")
     void testPrintBoardPrintCorrectValueIfSeedsEmpty(){
         viewConsole.printBoard(createListFiledWithCellsContainsEmptySeed());
         String excepted = " | | \n" +
@@ -54,6 +61,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test printBoard with cross Seeds Method")
     void testPrintBoardPrintCorrectValueIfSeedsAreCross(){
         viewConsole.printBoard(createListFiledWithCellsContainsCrossSeed());
         String excepted = "X|X|X\n" +
@@ -65,6 +73,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test printBoard with nought Seeds Method")
     void testPrintBoardPrintCorrectValueIfSeedsAreNought(){
         viewConsole.printBoard(createListFiledWithCellsContainsNoughtSeed());
         String excepted = "O|O|O\n" +
@@ -76,6 +85,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test wrongInputMessage Method")
     void testWrongInputMessagePrintCorrectValue(){
         String excepted = "Wrong input try again\n";
         viewConsole.wrongInputMessage();
@@ -83,6 +93,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test getColumnMessage Method")
     void testGetColumnMessagePrintCorrectValue(){
         viewConsole.getColumnMessage();
         String excepted = "Enter column number (1,3)\n";
@@ -90,6 +101,7 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test getRowMessage Method")
     void testGetRowMessagePrintCorrectValue(){
         viewConsole.getRowMessage();
         String excepted = "Enter row number (1,3)\n";
@@ -98,6 +110,7 @@ class ViewConsoleTest {
 
     @ParameterizedTest
     @MethodSource(names = "createArgumentsContainsNamesToTest")
+    @DisplayName("Test winMessage Method")
     void testWinMessagePrintCorrectValue(String name){
         viewConsole.winMessage(name);
         String excepted = "Player " + name + " WIN!!!\n";
@@ -106,12 +119,21 @@ class ViewConsoleTest {
 
     @ParameterizedTest
     @MethodSource(names = "createArgumentsContainsNamesToTest")
+    @DisplayName("Test turnMessage Method")
     void testTurnMessagePrintCorrectValue(String name){
         viewConsole.turnMessage(name);
         String excepted = "Player " + name + " turn\n";
         assertEquals(excepted, OUTPUT_STREAM.toString());
     }
 
+    @Test
+    @DisplayName("Test errorMessage Method")
+    void testErrorMessagePrintCorrectValue(){
+        String excepted = "Error\n";
+        String errorMessage = "Error";
+        viewConsole.errorMessage(errorMessage);
+        assertEquals(excepted, OUTPUT_STREAM.toString());
+    }
     private static Stream<Arguments> createArgumentsContainsIndexToTest() {
         return Stream.of(
                 ObjectArrayArguments.create(0),
