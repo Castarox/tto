@@ -25,9 +25,10 @@ public class PlayerTest {
 
     private static Stream<Arguments> createCorrectIndexForTest() {
         return Stream.of(
-                ObjectArrayArguments.create(1,2),
-                ObjectArrayArguments.create(300,24),
-                ObjectArrayArguments.create(4,5)
+                ObjectArrayArguments.create(0,2),
+                ObjectArrayArguments.create(2,2),
+                ObjectArrayArguments.create(1,2)
+
         );
     }
 

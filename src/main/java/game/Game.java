@@ -3,7 +3,6 @@ package game;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 public class Game {
@@ -21,12 +20,24 @@ public class Game {
         this.playerList = playerList;
     }
 
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
+    }
+
     public Player getCurrentPlayer(){
         return this.currentPlayer;
     }
 
     public void incrementMoves() {
         this.moveCounter++;
+    }
+
+    public Integer getMoveCounter() {
+        return moveCounter;
+    }
+
+    public void setMoveCounter(Integer moveCounter) {
+        this.moveCounter = moveCounter;
     }
 
     public boolean isWin(){
@@ -41,10 +52,6 @@ public class Game {
             return true;
         }
         return false;
-    }
-
-    public void setCurrentState(GameState state) {
-        this.currentState = state;
     }
 
     public void updateBoard(Player player) {
@@ -100,14 +107,7 @@ public class Game {
     }
 
     public boolean isDraw(){
-        return isDrawPossible();
-    }
-
-    public boolean isDrawPossible(){
-        if (this.moveCounter == 9) {
-            return true;
-        }
-        return false;
+        return this.moveCounter == 9;
     }
 
     public void switchPlayer(){
@@ -124,24 +124,4 @@ public class Game {
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
     }
-
-    public void setPlayerWinState(Player player){
-        if (player.getSeed() == Seed.CROSS) {
-            setCurrentState(GameState.CROSS_WON);
-        } else {
-            setCurrentState(GameState.NOUGHT_WON);
-        }
-    }
-
-    public boolean isForCheckPlayerWinCondition() {
-        Integer minimumNumberOfMoveToWin = 5;
-        Integer maximumNumberOfMoves = 9;
-        return this.moveCounter >= minimumNumberOfMoveToWin && this.moveCounter < maximumNumberOfMoves;
-    }
-
-    public boolean isForCheckStateCondition() {
-        Integer minimumNumberOfMoveToChangeState = 5;
-        return this.moveCounter >= minimumNumberOfMoveToChangeState;
-    }
-
 }
