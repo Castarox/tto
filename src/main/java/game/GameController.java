@@ -33,7 +33,7 @@ public class GameController {
         this.playerList = playerList;
     }
 
-    public Board getPreparedBorad() {
+    public Board getPreparedBoard() {
         Board board = new Board();
         board.init();
         return board;
@@ -67,8 +67,7 @@ public class GameController {
     }
 
     public List<Player> getPreparedPlayers(){
-        List<Player> playerList = getPlayers();
-        return playerList;
+        return getPlayers();
     }
 
     public ViewConsole getPreparedViewConsole(){
@@ -76,17 +75,17 @@ public class GameController {
     }
 
     public Game getPreparedGame(){
-        Player currenrPlayer = this.randomPlayer(this.playerList);
+        Player currentPlayer = this.randomPlayer(this.playerList);
         GameState gameState = GameState.PLAYING;
         Integer currentMove = 0;
-        return new Game(currenrPlayer, gameState, this.board, currentMove, this.playerList);
+        return new Game(currentPlayer, gameState, this.board, currentMove, this.playerList);
     }
 
     public void prepareGameController(){
         this.setViewConsole(getPreparedViewConsole());
         this.setUserInput(getPreparedUserInput());
         this.setPlayerList(getPreparedPlayers());
-        this.setBoard(getPreparedBorad());
+        this.setBoard(getPreparedBoard());
         this.setGame(getPreparedGame());
     }
 
@@ -96,7 +95,7 @@ public class GameController {
         gameController.runGame();
     }
 
-    public Map<String, Integer> getUserMove(UserInput userInput) {
+    public Map<String, Integer> getUserMove() {
         Map<String, Integer> playerMove = new HashMap<>();
         playerMove.put("row", getRowFromPlayer());
         playerMove.put("column", getColumnFromPlayer());
@@ -139,7 +138,7 @@ public class GameController {
         // TODO Make player make move get hashmap instead of two integers
         Boolean makingMove = true;
         while (makingMove) {
-            Map<String, Integer> playerMove = this.getUserMove(this.userInput);
+            Map<String, Integer> playerMove = this.getUserMove();
             try {
                 this.game.getCurrentPlayer().makeMove(playerMove.get("row"), playerMove.get("column"));
                 makingMove = false;

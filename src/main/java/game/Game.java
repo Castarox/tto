@@ -143,5 +143,4 @@ public class Game {
         Integer minimumNumberOfMoveToChangeState = 5;
         return this.moveCounter >= minimumNumberOfMoveToChangeState;
     }
-
 }
