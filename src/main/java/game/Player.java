@@ -8,6 +8,18 @@ public class Player {
     private Seed seed;
     private Map<String, Integer> move;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+
+        if (name != null ? !name.equals(player.name) : player.name != null) return false;
+        if (seed != player.seed) return false;
+        return move != null ? move.equals(player.move) : player.move == null;
+    }
+
     public Player(String name, Seed seed) {
         setName(name);
         setSeed(seed);
