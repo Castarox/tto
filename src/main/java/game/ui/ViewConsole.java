@@ -60,6 +60,13 @@ public class ViewConsole {
         System.out.println(error);
     }
 
+    public void startMessage(){
+        System.out.println("Welcome to tic tac toe game\n" +
+                "Rules:" +
+                "1) If you try to cheat you lose move\n" +
+                "2) GAME HAVE ONLY 9 ROUNDS");
+    }
+
     private Character chooseCrossNoughtOrEmpty(Cell cell){
         if (cell.getSeed() == Seed.CROSS){
             return 'X';

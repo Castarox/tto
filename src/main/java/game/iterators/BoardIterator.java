@@ -19,9 +19,11 @@ public class BoardIterator implements Iterator {
         this.twoDimensionList = twoDimensionList;
         this.currentRow = 0;
         this.currentColumn = 0;
-        this.maxRowSize = twoDimensionList.size();
-        Integer firstRowIndex = 0;
-        this.maxColumnSize = twoDimensionList.get(firstRowIndex).size();
+        if (twoDimensionList.size() > 0) {
+            this.maxRowSize = twoDimensionList.size();
+            Integer firstRowIndex = 0;
+            this.maxColumnSize = twoDimensionList.get(firstRowIndex).size();
+        }
     }
 
     public boolean hasNextInRow() {

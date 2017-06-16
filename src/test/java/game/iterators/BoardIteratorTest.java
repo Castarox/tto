@@ -1,9 +1,9 @@
 package game.iterators;
 
-import game.iterators.BoardIterator;
 import game.model.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -74,8 +74,6 @@ public class BoardIteratorTest {
         Cell result = null;
         while (boardIterator.hasNextInCrossDown()){
             result = boardIterator.nextInCrossDown();
-            Integer dupa = result.getColumn();
-            Integer lol = result.getRow();
         }
         assertEquals(exceptedCell, result);
     }
@@ -89,10 +87,51 @@ public class BoardIteratorTest {
         Cell result = null;
         while (boardIterator.hasNextInCrossUp()){
             result = boardIterator.nextInCrossUp();
-            Integer dupa = result.getColumn();
-            Integer lol = result.getRow();
         }
         assertEquals(exceptedCell, result);
+    }
+
+    @Nested
+    class testOnEmptyList{
+        private Integer testRowIndex;
+
+        @BeforeEach
+        void setup(){
+            List testEmptyList = new ArrayList();
+            boardIterator = new BoardIterator(testEmptyList);
+            testRowIndex = 1;
+        }
+
+        @Test
+        @DisplayName("Test next method should return null")
+        void testNextMethodReturnNullIfListIsEmpty(){
+            assertNull(boardIterator.next());
+        }
+
+        @Test
+        @DisplayName("Test nextInRow method should return null")
+        void testNextInRowMethodReturnNullIfListIsEmpty(){
+            assertNull(boardIterator.nextInRow(testRowIndex));
+        }
+
+        @Test
+        @DisplayName("Test nextInColumn method should return null")
+        void testNextInColumnMethodReturnNullIfListIsEmpty(){
+            assertNull(boardIterator.nextInColumn(testRowIndex));
+        }
+
+        @Test
+        @DisplayName("Test nextInCrossDown method should return null")
+        void testNextInCrossDownMethodReturnNullIfListIsEmpty(){
+            assertNull(boardIterator.nextInCrossDown());
+        }
+
+        @Test
+        @DisplayName("Test nextInCrossUp method should return null")
+        void testNextInCrossUpMethodReturnNullIfListIsEmpty(){
+           assertNull(boardIterator.nextInCrossUp());
+        }
+
     }
 
     private List<List<Cell>> createTestList(){

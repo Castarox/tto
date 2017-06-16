@@ -1,7 +1,5 @@
 package game.model;
 
-import game.model.Board;
-import game.model.Cell;
 import game.enums.Seed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

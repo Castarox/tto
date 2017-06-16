@@ -1,6 +1,5 @@
 package game.controller;
 
-import game.enums.GameState;
 import game.enums.Seed;
 import game.ui.UserInput;
 import game.ui.ViewConsole;
@@ -188,6 +187,7 @@ public class GameController {
 
     private void runGame() {
         Boolean playing = true;
+        viewConsole.startMessage();
         while (playing) {
 
             displayBoard();

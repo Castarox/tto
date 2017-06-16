@@ -127,6 +127,17 @@ class ViewConsoleTest {
     }
 
     @Test
+    @DisplayName("Test startMessage Method")
+    void testStartMessagePrintCorrectValue(){
+        viewConsole.startMessage();
+        String excepted = "Welcome to tic tac toe game\n" +
+                "Rules:" +
+                "1) If you try to cheat you lose move\n" +
+                "2) GAME HAVE ONLY 9 ROUNDS\n";
+        assertEquals(excepted, OUTPUT_STREAM.toString());
+    }
+
+    @Test
     @DisplayName("Test errorMessage Method")
     void testErrorMessagePrintCorrectValue(){
         String excepted = "Error\n";
