@@ -62,7 +62,7 @@ public class ViewConsole {
 
     public void startMessage(){
         System.out.println("Welcome to tic tac toe game\n" +
-                "Rules:" +
+                "Rules:\n" +
                 "1) If you try to cheat you lose move\n" +
                 "2) GAME HAVE ONLY 9 ROUNDS");
     }

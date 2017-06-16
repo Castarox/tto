@@ -131,7 +131,7 @@ class ViewConsoleTest {
     void testStartMessagePrintCorrectValue(){
         viewConsole.startMessage();
         String excepted = "Welcome to tic tac toe game\n" +
-                "Rules:" +
+                "Rules:\n" +
                 "1) If you try to cheat you lose move\n" +
                 "2) GAME HAVE ONLY 9 ROUNDS\n";
         assertEquals(excepted, OUTPUT_STREAM.toString());
