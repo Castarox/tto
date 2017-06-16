@@ -45,7 +45,6 @@ public class GameController {
     Board getPreparedBoard() {
         Board board = new Board();
         board.init();
-
         return board;
     }
 
@@ -67,17 +66,12 @@ public class GameController {
 
     List<Player> getPlayers() {
         List<Player> playerList = new ArrayList<>();
-
         this.getViewConsole().getNameMessage(playerList.size());
-
         Player firstPlayer = createFirstPlayer(getPlayerName());
         playerList.add(firstPlayer);
-
         this.getViewConsole().getNameMessage(playerList.size());
-
         Player secondPlayer = createSecondPlayer(getPlayerName());
         playerList.add(secondPlayer);
-
         return playerList;
     }
 
@@ -92,7 +86,6 @@ public class GameController {
     Game getPreparedGame() {
         Player currentPlayer = this.randomPlayer(this.playerList);
         Integer currentMove = 0;
-
         return new Game(currentPlayer, this.board, currentMove, this.playerList);
     }
 
@@ -114,38 +107,29 @@ public class GameController {
         Map<String, Integer> playerMove = new HashMap<>();
         playerMove.put("row", getRowFromPlayer());
         playerMove.put("column", getColumnFromPlayer());
-
         return playerMove;
     }
 
     Integer getColumnFromPlayer() {
         Integer columnIndex;
         Boolean getColumn = true;
-
         while (getColumn) {
-
             this.getViewConsole().getColumnMessage();
-
             try {
                 columnIndex = userInput.getInteger() - 1;
                 return columnIndex;
             } catch (InputMismatchException e) {
                 viewConsole.errorMessage(e.getMessage());
             }
-
         }
-
         return null;
     }
 
     Integer getRowFromPlayer() {
         Boolean getRow = true;
         Integer rowIndex;
-
         while (getRow) {
-
             this.getViewConsole().getRowMessage();
-
             try {
                 rowIndex = userInput.getInteger() - 1;
                 getRow = false;
@@ -153,25 +137,20 @@ public class GameController {
             } catch (InputMismatchException e) {
                 viewConsole.errorMessage(e.getMessage());
             }
-
         }
         return null;
     }
 
     private void playerMove() {
         Boolean makingMove = true;
-
         while (makingMove) {
-
             Map<String, Integer> playerMove = this.getUserMove();
-
             try {
                 this.game.getCurrentPlayer().makeMove(playerMove.get("row"), playerMove.get("column"));
                 makingMove = false;
             } catch (IllegalArgumentException e) {
                 this.getViewConsole().errorMessage(e.getMessage());
             }
-
         }
     }
 
@@ -189,19 +168,15 @@ public class GameController {
     private void runGame() {
         Boolean playing = true;
         while (playing) {
-
             displayBoard();
             viewConsole.turnMessage(game.getCurrentPlayer().getName());
             updateGame();
-
             if (win()) {
                 playing = false;
             }
-
             else if (draw()) {
                 break;
             }
-
             nextPlayer();
         }
     }
@@ -211,7 +186,6 @@ public class GameController {
             this.getViewConsole().winMessage(game.getCurrentPlayer().getName());
             return true;
         }
-
         return false;
     }
 
@@ -220,7 +194,6 @@ public class GameController {
             System.out.println("draw");
             return true;
         }
-
         return false;
     }
 
@@ -231,7 +204,6 @@ public class GameController {
     Player randomPlayer(List<Player> playerList) {
         Random random = new Random();
         Player randomPlayer = playerList.get(random.nextInt(playerList.size()));
-
         return randomPlayer;
     }
 }
